@@ -21,7 +21,7 @@
     </v-navigation-drawer>
     <v-toolbar dark class="light-blue darken-4">
       <v-toolbar-side-icon
-        @click.native="sideNav = !sideNav"
+        @click="sideNav = !sideNav"
         class="hidden-sm-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">DevMeetup</router-link>
@@ -32,7 +32,6 @@
           flat
           v-for="item in menusItems"
           :key="item.title"
-          router
           :to="item.link"
         >
           <v-icon left>{{item.icon}}</v-icon>

@@ -1,4 +1,4 @@
-# yt-devmeetups
+# devmeetups
 
 > A Vue.js project
 
