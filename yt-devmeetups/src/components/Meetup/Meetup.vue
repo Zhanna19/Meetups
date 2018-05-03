@@ -1,15 +1,15 @@
 <template>
     <v-container>
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 >
           <v-card>
             <v-card-title>
-              <h4 class="primary--text">My meetup</h4>
+              <h4 class="primary--text">{{meetup.title}}</h4>
             </v-card-title>
             <v-card-media
               class="white--text"
               height="400px"
-              src="https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200"
+              :src="meetup.imageUrl"
             >
               <v-container fill-height fluid>
                 <v-layout row>
@@ -20,7 +20,7 @@
               </v-container>
             </v-card-media>
             <v-card-text>
-              <div class="info--text">17th July 2018 - Where it will be</div>
+              <div class="info--text">{{meetup.date}} - Where it will be</div>
               <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed molestie neque.
               Pellentesque ac lectus risus. Curabitur mattis et quam non scelerisque.
                 Curabitur sagittis purus nisl, at efficitur velit porttitor non.</div>
@@ -37,7 +37,13 @@
 
 <script>
     export default {
-      name: 'Meetup'
+      name: 'Meetup',
+      props: ['id'],
+      computed: {
+        meetup () {
+          return this.$store.getters.loadedMeetup(this.id)
+        }
+      }
     }
 </script>
 
