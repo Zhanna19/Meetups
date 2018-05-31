@@ -87,7 +87,6 @@ export const store = new Vuex.Store({
       }
       firebase.database().ref('meetups').push(meetup)
         .then((data) => {
-          console.log(data)
           let key = data.key
           commit('createMeetup', {...meetup, id: key})
         })
