@@ -7,7 +7,7 @@
     >
       <v-list>
         <v-list-tile
-          v-for="item in menusItems"
+          v-for="item in menuItems"
           :key="item.title"
           router
           :to="item.link"
@@ -30,7 +30,7 @@
       <v-toolbar-items class="hidden-xs-only">
         <v-btn
           flat
-          v-for="item in menusItems"
+          v-for="item in menuItems"
           :key="item.title"
           :to="item.link"
         >
@@ -47,18 +47,30 @@
 
 <script>
 export default {
+  name: 'App',
   data () {
     return {
-      sideNav: false,
-      menusItems: [
-        {icon: 'supervisor_account', title: 'Vue Meetups', link: '/meetups'},
-        {icon: 'room', title: 'Organize Meetup', link: '/meetups/new'},
-        {icon: 'person', title: 'Profile', link: '/profile'},
+      sideNav: false
+    }
+  },
+  computed: {
+    menuItems () {
+      let menuItems = [
         {icon: 'face', title: 'Sign up', link: '/signup'},
         {icon: 'lock_open', title: 'Sign in', link: '/signin'}
       ]
+      if (this.userIsAuthenticated) {
+        menuItems = [
+          {icon: 'supervisor_account', title: 'Vue Meetups', link: '/meetups'},
+          {icon: 'room', title: 'Organize Meetup', link: '/meetups/new'},
+          {icon: 'person', title: 'Profile', link: '/profile'}
+        ]
+      }
+      return menuItems
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
-  },
-  name: 'App'
+  }
 }
 </script>

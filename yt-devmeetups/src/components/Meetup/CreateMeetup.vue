@@ -38,6 +38,13 @@
                 required
               >
               </v-text-field>
+              <v-flex xs12 sm12 offset-sm-3 mb-2>
+                <h4>Choose a Date & Time</h4>
+                <v-date-picker v-model="date"></v-date-picker>
+              </v-flex>
+              <v-flex xs12 sm12 offset-sm-3>
+                <v-time-picker v-model="time" format="24hr"></v-time-picker>
+              </v-flex>
               <v-btn
                 class="primary"
                 :disabled="!formValid"
@@ -61,7 +68,9 @@
           title: '',
           location: '',
           imageUrl: '',
-          description: ''
+          description: '',
+          date: '',
+          time: null
         }
       },
       computed: {
@@ -70,17 +79,35 @@
             this.location !== '' &&
             this.imageUrl !== '' &&
             this.description !== ''
+        },
+        submittableDateTme () {
+          let date = new Date(this.date)
+          if (typeof this.time === 'string') {
+            let hours = this.time.match(/^(\d+)/)[1]
+            let minutes = this.time.match(/:(\d+)/)[1]
+            date.setHours(hours)
+            date.setMinutes(minutes)
+          } else {
+            date.setHours(this.time.getHours())
+            date.setMinutes(this.time.getMinutes())
+          }
+          return date
         }
       },
       methods: {
         onCreateMeetup () {
+          if (!this.formValid) {
+            return
+          }
           let meetupData = {
             title: this.title,
             location: this.location,
             imageUrl: this.imageUrl,
-            description: this.description
+            description: this.description,
+            date: this.submittableDateTme
           }
           this.$store.dispatch('createMeetup', meetupData)
+          this.$router.push('/meetups')
         }
       }
     }

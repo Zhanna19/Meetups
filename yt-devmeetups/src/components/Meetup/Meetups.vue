@@ -17,7 +17,7 @@
         </v-card-media>
         <v-card-title>
           <div>
-            <h5 class="green--text mb-2">{{meetup.date}}</h5>
+            <h5 class="green--text mb-2">{{meetup.date | date}}</h5>
             <h3>{{meetup.title}}</h3>
           </div>
         </v-card-title>

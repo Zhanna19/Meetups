@@ -20,10 +20,8 @@
               </v-container>
             </v-card-media>
             <v-card-text>
-              <div class="info--text">{{meetup.date}} - Where it will be</div>
-              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed molestie neque.
-              Pellentesque ac lectus risus. Curabitur mattis et quam non scelerisque.
-                Curabitur sagittis purus nisl, at efficitur velit porttitor non.</div>
+              <div class="info--text">{{meetup.date | date}} - {{meetup.location}}</div>
+              <div>{{meetup.description}}</div>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
