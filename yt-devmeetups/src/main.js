@@ -6,6 +6,9 @@ import { store } from './store'
 import DateFilter from './filters/date'
 import * as firebase from 'firebase'
 import AlertComp from './components/Shared/Alert'
+import EditMeetupDialoge from './components/Meetup/Edit/EditMeetup'
+import EditMeetupDate from './components/Meetup/Edit/EditMeetupDate'
+import EditMeetupTime from './components/Meetup/Edit/EditMeetupTime'
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -13,6 +16,9 @@ Vue.use(Vuetify)
 
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertComp)
+Vue.component('edit-meetup-dialoge', EditMeetupDialoge)
+Vue.component('edit-meetup-date', EditMeetupDate)
+Vue.component('edit-meetup-time', EditMeetupTime)
 
 Vue.config.productionTip = false
 
@@ -22,7 +28,7 @@ const config = {
   authDomain: 'devmeetup-8fba8.firebaseapp.com',
   databaseURL: 'https://devmeetup-8fba8.firebaseio.com',
   projectId: 'devmeetup-8fba8',
-  storageBucket: 'devmeetup-8fba8.appspot.com',
+  storageBucket: 'gs://devmeetup-8fba8.appspot.com/',
   messagingSenderId: '974827570039'
 }
 
