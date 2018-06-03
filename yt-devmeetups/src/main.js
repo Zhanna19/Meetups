@@ -9,6 +9,7 @@ import AlertComp from './components/Shared/Alert'
 import EditMeetupDialoge from './components/Meetup/Edit/EditMeetup'
 import EditMeetupDate from './components/Meetup/Edit/EditMeetupDate'
 import EditMeetupTime from './components/Meetup/Edit/EditMeetupTime'
+import RegistrationDialog from './components/Registration/RegistrationDialog'
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -19,6 +20,7 @@ Vue.component('app-alert', AlertComp)
 Vue.component('edit-meetup-dialoge', EditMeetupDialoge)
 Vue.component('edit-meetup-date', EditMeetupDate)
 Vue.component('edit-meetup-time', EditMeetupTime)
+Vue.component('app-register', RegistrationDialog)
 
 Vue.config.productionTip = false
 
