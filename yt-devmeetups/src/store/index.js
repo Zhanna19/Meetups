@@ -245,6 +245,30 @@ export const store = new Vuex.Store({
     autoSignIn ({ commit }, payload) {
       commit('setUser', {id: payload.uid, registerMeetups: [], fbKeys: {}})
     },
+    fetchUserData ({ commit, getters }) {
+      commit('setLoading', true)
+      firebase.database().ref('/users/' + getters.user.id + '/registration').once('value')
+        .then(data => {
+          let values = data.val()
+          let registerMeetups = []
+          let fbRefidterKey = {}
+          for (let key in values) {
+            registerMeetups.push(values[key])
+            fbRefidterKey[values[key]] = key
+          }
+          let updatedUser = {
+            id: getters.user.id,
+            registerMeetups: registerMeetups,
+            fbKeys: fbRefidterKey
+          }
+          commit('setLoading', false)
+          commit('setUser', updatedUser)
+        })
+        .catch(error => {
+          commit('setLoading', false)
+          console.log(error)
+        })
+    },
     logout ({ commit }) {
       firebase.auth().signOut()
       commit('setUser', null)
@@ -256,8 +280,8 @@ export const store = new Vuex.Store({
         return meetupA.date > meetupB.date
       })
     },
-    featureMeetups (state, geeters) {
-      return geeters.loadedMeetups.slice(0, 5)
+    featureMeetups (state, getters) {
+      return getters.loadedMeetups.slice(0, 5)
     },
     loadedMeetup (state) {
       return (meetupId) => {
