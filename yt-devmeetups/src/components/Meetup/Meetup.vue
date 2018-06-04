@@ -45,6 +45,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
+              <v-btn flat class="blue--text" @click="download">Download information</v-btn>
               <app-register :meetupId="meetup.id" v-if="userIsAuthenticated && !userIsCreator"></app-register>
             </v-card-actions>
           </v-card>
@@ -54,27 +55,38 @@
 </template>
 
 <script>
-    export default {
-      name: 'Meetup',
-      props: ['id'],
-      computed: {
-        meetup () {
-          return this.$store.getters.loadedMeetup(this.id)
-        },
-        userIsAuthenticated () {
-          return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-        },
-        userIsCreator () {
-          if (!this.userIsAuthenticated) {
-            return false
-          }
-          return this.$store.getters.user.id === this.meetup.creatorId
-        },
-        loading () {
-          return this.$store.getters.loading
+  import JSPdf from 'jsPDF'
+  export default {
+    name: 'Meetup',
+    props: ['id'],
+    computed: {
+      meetup () {
+        return this.$store.getters.loadedMeetup(this.id)
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      },
+      userIsCreator () {
+        if (!this.userIsAuthenticated) {
+          return false
         }
+        return this.$store.getters.user.id === this.meetup.creatorId
+      },
+      loading () {
+        return this.$store.getters.loading
+      }
+    },
+    methods: {
+      download () {
+        let doc = new JSPdf()
+        let date = new Date(this.meetup.date)
+        doc.text(this.meetup.title, 10, 10)
+        doc.text(date.toString(), 10, 20)
+        doc.text(this.meetup.description, 10, 30)
+        doc.save(this.meetup.title + '.pdf')
       }
     }
+  }
 </script>
 
 <style scoped>
